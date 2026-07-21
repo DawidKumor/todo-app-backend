@@ -9,4 +9,13 @@ async function createTodo(req, res) {
   }
 }
 
-module.exports = { createTodo };
+async function getTodos(req, res) {
+  try {
+    const todos = await Todo.find({});
+    res.status(200).json(todos);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
+
+module.exports = { createTodo, getTodos };
