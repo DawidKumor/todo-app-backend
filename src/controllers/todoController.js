@@ -18,4 +18,16 @@ async function getTodos(req, res) {
   }
 }
 
-module.exports = { createTodo, getTodos };
+async function deleteTodo(req, res) {
+  try {
+    const result = await Todo.findByIdAndDelete(req.params.id);
+    if (!result) {
+      return res.status(404).json({ message: "Document not found" });
+    }
+    res.status(200).json({ message: `${result._id} deleted` });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
+
+module.exports = { createTodo, getTodos, deleteTodo };
