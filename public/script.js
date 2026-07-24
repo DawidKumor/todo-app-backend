@@ -1,20 +1,23 @@
 const toggleFormBtn = document.querySelector("#toggleFormBtn");
 const taskForm = document.querySelector("#taskForm");
+const taskFormOverlay = document.querySelector("#taskFormOverlay");
 const taskList = document.querySelector("#taskList");
 const cancelBtn = document.querySelector(".task-form-cancel__button");
 const formError = document.querySelector("#formError");
 
 const editForm = document.querySelector("#editForm");
+const editFormOverlay = document.querySelector("#editFormOverlay");
 const editFormError = document.querySelector("#editFormError");
+const editCancelBtn = document.querySelector(".edit-form-cancel__button");
 
 let currentEditId = null;
 
 toggleFormBtn.addEventListener("click", () => {
-  taskForm.hidden = !taskForm.hidden;
+  taskFormOverlay.hidden = !taskFormOverlay.hidden;
 });
 
 cancelBtn.addEventListener("click", () => {
-  taskForm.hidden = true;
+  taskFormOverlay.hidden = true;
   taskForm.reset();
 });
 
@@ -39,7 +42,7 @@ taskForm.addEventListener("submit", async (event) => {
 
   formError.hidden = true;
   taskForm.reset();
-  taskForm.hidden = true;
+  taskFormOverlay.hidden = true;
   fetchTasks();
 });
 
@@ -50,7 +53,7 @@ function renderTasks(tasks) {
     li.className = "task-list__item";
     li.dataset.id = task._id;
     li.innerHTML = `
-    <input class="task-list__checkbox" type="checkbox" disabled ${task.completed ? "checked" : ""}>
+      <input class="task-list__checkbox" type="checkbox" disabled ${task.completed ? "checked" : ""}>
       <span class="task-list__date">${new Date(task.createdAt).toLocaleDateString()}</span>
       <span class="task-list__title">${task.title}</span>
       <span class="task-list__description">${task.description}</span>
@@ -82,6 +85,7 @@ taskList.addEventListener("click", async (event) => {
     }
     fetchTasks();
   }
+
   if (event.target.classList.contains("task-list__checkbox")) {
     const response = await fetch(`/tasks/${id}`, {
       method: "PATCH",
@@ -107,7 +111,7 @@ taskList.addEventListener("click", async (event) => {
     document.querySelector("#editCompleted").checked = completed;
 
     currentEditId = id;
-    editForm.hidden = false;
+    editFormOverlay.hidden = false;
   }
 });
 
@@ -133,15 +137,13 @@ editForm.addEventListener("submit", async (event) => {
 
   editFormError.hidden = true;
   editForm.reset();
-  editForm.hidden = true;
+  editFormOverlay.hidden = true;
   currentEditId = null;
   fetchTasks();
 });
 
-const editCancelBtn = document.querySelector(".edit-form-cancel__button");
-
 editCancelBtn.addEventListener("click", () => {
-  editForm.hidden = true;
+  editFormOverlay.hidden = true;
   editForm.reset();
   currentEditId = null;
 });

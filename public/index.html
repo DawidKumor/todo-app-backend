@@ -1,55 +1,62 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo</title>
+    <title>Todo App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1 class="page-title">My Tasks</h1>
-    <button class="toggle-form-button" id="toggleFormBtn">+ Add Task</button>
+    <h1>Moje zadania</h1>
 
-    <form class="task-form" id="taskForm" hidden>
-      <input
-        class="task-form__input"
-        type="text"
-        id="title"
-        placeholder="Title"
-      />
-      <input
-        class="task-form__input"
-        type="text"
-        id="description"
-        placeholder="Description"
-      />
-      <button class="task-form__button" type="submit">Add Task</button>
-      <button class="task-form-cancel__button" type="button">Cancel</button>
-      <p class="task-form__error" id="formError" hidden></p>
-    </form>
-    <form class="edit-form" id="editForm" hidden>
-      <input
-        class="edit-form__input"
-        type="text"
-        id="editTitle"
-        placeholder="Title"
-        required
-      />
-      <input
-        class="edit-form__input"
-        type="text"
-        id="editDescription"
-        placeholder="Description"
-      />
-      <label class="edit-form__label">
-        <input class="edit-form__checkbox" type="checkbox" id="editCompleted" />
-        Completed
-      </label>
-      <button class="edit-form__button" type="submit">Save</button>
-      <button class="edit-form-cancel__button" type="button">Cancel</button>
-      <p class="edit-form__error" id="editFormError" hidden></p>
-    </form>
+    <button id="toggleFormBtn" type="button">+ Dodaj zadanie</button>
 
     <ul class="task-list" id="taskList"></ul>
+
+    <div class="form-overlay" id="taskFormOverlay" hidden>
+      <form id="taskForm">
+        <h2>Nowe zadanie</h2>
+        <label for="title">Tytuł</label>
+        <input id="title" name="title" type="text" required />
+
+        <label for="description">Opis</label>
+        <textarea id="description" name="description"></textarea>
+
+        <p class="form-error" id="formError" hidden></p>
+
+        <div class="form-buttons">
+          <button type="submit">Zapisz</button>
+          <button type="button" class="task-form-cancel__button">Anuluj</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="form-overlay" id="editFormOverlay" hidden>
+      <form id="editForm">
+        <h2>Edytuj zadanie</h2>
+        <label for="editTitle">Tytuł</label>
+        <input id="editTitle" name="editTitle" type="text" required />
+
+        <label for="editDescription">Opis</label>
+        <textarea id="editDescription" name="editDescription"></textarea>
+
+        <label class="checkbox-label">
+          <input id="editCompleted" type="checkbox" />
+          Zakończone
+        </label>
+
+        <p class="form-error" id="editFormError" hidden></p>
+
+        <div class="form-buttons">
+          <button type="submit">Zapisz zmiany</button>
+          <button type="button" class="edit-form-cancel__button">Anuluj</button>
+        </div>
+      </form>
+    </div>
 
     <script src="script.js"></script>
   </body>
