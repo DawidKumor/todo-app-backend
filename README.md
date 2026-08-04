@@ -27,13 +27,14 @@ src/
 ├── routes/
 ├── middleware/
 ├── config/
+├── server.ts
 public/
 ├── index.html
 ├── style.css
 ├── script.js
 .env.example
 .gitignore
-server.js
+
 \`\`\`
 
 ## Getting Started
@@ -71,4 +72,4 @@ server.js
 
 ## Author
 
-Your name — [GitHub](https://github.com/DawidKumor)
+Dawid Kumor — [GitHub](https://github.com/DawidKumor)
