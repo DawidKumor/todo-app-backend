@@ -1,6 +1,12 @@
 import { type Request, type Response } from "express";
 import Todo from "../models/Task.js";
-async function createTodo(req: Request, res: Response) {
+import type { ITodo } from "../models/Task.js";
+
+type TodoBody = Omit<ITodo, "createdAt">;
+type TodoUpdateBody = Partial<TodoBody>;
+type TodoParams = { id: string };
+
+async function createTodo(req: Request<{}, {}, TodoBody>, res: Response) {
   try {
     const newTodo = new Todo(req.body);
     await newTodo.save();
@@ -22,7 +28,7 @@ async function getTodos(req: Request, res: Response) {
   }
 }
 
-async function deleteTodo(req: Request, res: Response) {
+async function deleteTodo(req: Request<TodoParams>, res: Response) {
   try {
     const result = await Todo.findByIdAndDelete(req.params.id);
     if (!result) {
@@ -35,7 +41,10 @@ async function deleteTodo(req: Request, res: Response) {
   }
 }
 
-async function updateTodo(req: Request, res: Response) {
+async function updateTodo(
+  req: Request<TodoParams, {}, TodoUpdateBody>,
+  res: Response,
+) {
   try {
     const result = await Todo.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: "after",

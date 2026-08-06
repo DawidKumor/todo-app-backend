@@ -1,7 +1,7 @@
 // const mongoose = require("mongoose");
 import { Schema, model } from "mongoose";
 
-interface ITodo {
+export interface ITodo {
   createdAt: Date;
   title: string;
   description?: string; // ?-optional
